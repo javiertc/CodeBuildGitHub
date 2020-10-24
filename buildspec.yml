@@ -13,7 +13,6 @@ phases:
     pre_build:
         commands:
             - echo "Pre-build phase"
-            - eslint *.js
     build:
         commands:
         - echo "Build phase"
