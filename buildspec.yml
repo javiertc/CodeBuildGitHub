@@ -8,7 +8,6 @@ phases:
     install:
         commands:
             - echo "Install phase"
-            - cd codebuildgithub
             - npm install
     pre_build:
         commands:

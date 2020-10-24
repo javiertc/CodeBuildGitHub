@@ -1,6 +1,10 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
+Description: >
+  CodeBuildGitbuh
 
+  Sample SAM Template for CodeBuildGitbuh
+  
 # Parameters definitions
 Parameters:
     Environment:
@@ -31,8 +35,8 @@ Resources:
     MyEchoFunction:
         Type: AWS::Serverless::Function
         Properties:
-            CodeUri: ./
-            Handler: app.handler
+            CodeUri: codebuildgithub/
+            Handler: app.lambdaHandler
             Runtime: nodejs12.x
             Events:
                 EchoFunctionAPI: # warning: creates a public endpoint
