@@ -1,8 +1,8 @@
 version: 0.2
+
 env:
-    variables:
-        parameter-store:
-            BUILD_OUTPUT_BUCKET: /Dev/buketname
+    parameter-store:
+        BUILD_OUTPUT_BUCKET: /Dev/buketname
 
 phases:
     install:
