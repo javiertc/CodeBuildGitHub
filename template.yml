@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+# Parameters definitions
+Parameters:
+    Environment:
+        Type: String
+        Default: dev
+        AllowedValues:
+            - dev
+            - staging
+            - prod
+        Description: Environment of this stack of resources
+
+# Global information for all the functions
+Globals:
+    Function:
+        MemorySize: 256
+        Timeout: 100
+
+Resources:
+  # Basic definitions for my API Gateway
+    MyEchoApi:
+        Type: AWS::Serverless::HttpApi
+        Properties:
+            StageName: !Ref Environment
+            AccessLogSettings:
+                DestinationArn: !GetAtt AccessLogs.Arn
+
+    # A function with the most commont attributes
+    MyEchoFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: ./
+            Handler: app.handler
+            Runtime: nodejs12.x
+            Events:
+                EchoFunctionAPI: # warning: creates a public endpoint
+                    Type: HttpApi
+                    Properties:
+                        RestApiId: !Ref MyEchoApi
+                        Method: GET
+                        Path: /echo
+                        TimeoutInMillis: 15000
+                        PayloadFormatVersion: "2.0"
+                        RouteSettings:
+                            ThrottlingBurstLimit: 600
+    AccessLogs:
+        Type: AWS::Logs::LogGroup
+
+Outputs:
+    Region:
+        Description: "Region"
+        Value: !Ref AWS::Region
+
+    ApiId:
+        Description: "API ID"
+        Value: !Ref MyApi
+
+    HttpApiUrl:
+        Description: "API endpoint URL for Prod environment"
+        Value:
+            Fn::Sub: 'https://${HttpApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/${StageName}/'
+        HttpApiId:
+            Description: Api id of HttpApi
+            Value:
+              Ref: MyApi
