@@ -8,6 +8,7 @@ phases:
     install:
         commands:
             - echo "Install phase"
+            - cd codebuildgithub
             - npm install
     pre_build:
         commands:
@@ -19,7 +20,7 @@ phases:
     post_build:
         commands:
         - echo "Post-build phase"
-        - sam package --s3-bucket $BUILD_OUTPUT_BUCKET --template-file template.yml --output-template-file packaged.yml
+        - sam package --template-file template.yml --output-template-file packaged.yml --s3-bucket $BUILD_OUTPUT_BUCKET  
 
 artifacts:
     files:
