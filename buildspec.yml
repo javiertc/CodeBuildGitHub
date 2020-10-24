@@ -2,12 +2,13 @@ version: 0.2
 
 variables:
     parameter-store:
-        BUILD_OUTPUT_BUCKET: /projectname/buketname-stage
+        BUILD_OUTPUT_BUCKET: /Dev/buketname
 
 phases:
     install:
         commands:
             - echo "Install phase"
+            - sam --version
             - pip install --upgrade pip
             - pip install pipenv
             - pipenv install awscli aws-sam-cli
