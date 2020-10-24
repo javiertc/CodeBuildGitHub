@@ -29,7 +29,6 @@ phases:
         - sam package --s3-bucket $BUILD_OUTPUT_BUCKET --template-file template.yml --output-template-file packaged.yml
 
 artifacts:
-    type: zip
     files:
         - packaged.yml
 
