@@ -20,9 +20,9 @@ phases:
         commands:
         - ls -la
         - echo "Post-build phase"
-        - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket $BUILD_OUTPUT_BUCKET  
+        - sam package --template-file template.yaml --s3-bucket $BUILD_OUTPUT_BUCKET --output-template packaged.yaml
 
 artifacts:
     files:
-        - template.yaml
+        - packaged.yaml
 
